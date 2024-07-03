@@ -47,7 +47,7 @@ source "parallels-iso" "debian" {
   memory                 = 2048
   cpus                   = 2
   disk_size              = 20480
-  vm_name                = "Packer: Debian 12.2 (arm64)"
+  vm_name                = "packer_debian12_aarch64"
   output_directory       = "out"
   parallels_tools_flavor = "lin-arm"
 }

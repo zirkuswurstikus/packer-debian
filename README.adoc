@@ -1,0 +1,22 @@
+= README
+
+This repo contain a packer hcl to create a Debian 12 box for Vagrant.
+
+Provider: parallels-iso
+Arch:     aarch64
+
+== tl;dr
+
+git clone git@github.com:zirkuswurstikus/packer-debian.git
+packer init .
+packer build .
+vagrant up
+vagrant ssh
+
+# user:     vagrant
+# password: vagrant
+# ssh-key:  https://raw.githubusercontent.com/hashicorp/vagrant/main/keys/vagrant.pub
+
+== Thanks to ...
+
+* @markush81 for most of the stuff I steal ;) 

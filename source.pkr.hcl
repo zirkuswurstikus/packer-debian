@@ -48,7 +48,7 @@ source "parallels-iso" "debian" {
   cpus                   = 2
   disk_size              = 20480
   vm_name                = "packer_debian12_aarch64"
-  output_directory       = "out"
+  output_directory       = "./outdir" # path for the vm during build, will be deleted
   parallels_tools_flavor = "lin-arm"
 }
 
@@ -75,5 +75,6 @@ build {
   post-processor "vagrant" {
     compression_level              = 9
     vagrantfile_template_generated = true
+    output                         = "out/debian12_aarch64_{{ .Provider }}.box"
   }
 }

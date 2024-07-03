@@ -39,9 +39,10 @@ if [[ ${IS_VMWARE} == 1 ]]; then
 fi
 
 cat /dev/null >~/.bash_history
-sudo passwd -l "$USER_NAME"
-sudo passwd -d "$USER_NAME"
-sudo usermod -L "$USER_NAME"
+
+# sudo passwd -l "$USER_NAME"
+# sudo passwd -d "$USER_NAME"
+# sudo usermod -L "$USER_NAME"
 
 if [[ ${IS_VMWARE} == 1 ]]; then
   sudo vmware-toolbox-cmd disk shrink /

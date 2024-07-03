@@ -1,7 +1,3 @@
 packer_cache
-parallels/debian
-parallels/ubuntu
-parallels/*.box
-vmware/debian
-vmware/ubuntu
-vmware/*.boxout/
+.vagrant/
+out/

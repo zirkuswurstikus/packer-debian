@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 set -u
-set -o pipefail
+#set -o pipefail
 IFS=$'\n\t'
 
 mkdir -p /home/"$USER_NAME"/.ssh

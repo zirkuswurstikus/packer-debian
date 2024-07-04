@@ -106,7 +106,7 @@ build {
       "USER_NAME=${var.user_name}",
       "PARALLELS=1"
     ]
-    execute_command =  "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'"
+    #execute_command =  "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'"
     scripts = [
       "./ressources/scripts/create-user.sh",
       "./ressources/scripts/disable-ipv6.sh",

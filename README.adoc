@@ -13,9 +13,10 @@ packer build .
 vagrant up
 vagrant ssh
 
-# user:     vagrant
-# password: vagrant
-# ssh-key:  https://raw.githubusercontent.com/hashicorp/vagrant/main/keys/vagrant.pub
+ user:     vagrant
+ password: vagrant
+
+ssh-key:  https://raw.githubusercontent.com/hashicorp/vagrant/main/keys/vagrant.pub
 
 == Thanks to ...
 

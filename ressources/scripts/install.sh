@@ -18,9 +18,9 @@ sudo apt-get update -y
 is_vmware() {
     if grep -q "VMware" /proc/scsi/scsi 2>/dev/null; then
         return 0
-    elif dmesg | grep -q "VMware Virtual Platform" 2>/dev/null; then
+    elif sudo dmesg | grep -q "VMware Virtual Platform" 2>/dev/null; then
         return 0
-    elif dmidecode -s system-product-name 2>/dev/null | grep -q "VMware Virtual Platform"; then
+    elif sudo dmidecode -s system-product-name 2>/dev/null | grep -q "VMware Virtual Platform"; then
         return 0
     else
         return 1
@@ -29,9 +29,9 @@ is_vmware() {
 
 # Function to check if running inside Parallels
 is_parallels() {
-    if dmesg | grep -q "Parallels" 2>/dev/null; then
+    if sudo dmesg | grep -q "Parallels" 2>/dev/null; then
         return 0
-    elif dmidecode -s system-product-name 2>/dev/null | grep -q "Parallels Virtual Platform"; then
+    elif sudo dmidecode -s system-product-name 2>/dev/null | grep -q "Parallels Virtual Platform"; then
         return 0
     else
         return 1

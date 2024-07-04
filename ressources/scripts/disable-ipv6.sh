@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 set -u
-set -o pipefail
+#set -o pipefail
 IFS=$'\n\t'
 
 cat <<EOF | sudo tee -a /etc/sysctl.d/disable-ipv6.conf

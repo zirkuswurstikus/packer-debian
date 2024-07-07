@@ -2,11 +2,38 @@ variable "user_name" {
   type    = string
   default = "vagrant"
 }
-
 variable "user_pwd" {
   type    = string
   default = "vagrant"
 }
+variable "output_dir" {
+  type    = string
+  default = "out"
+}
+variable "ssh_password" {
+  type    = string
+  default = "vagrant"
+}
+
+variable "ssh_username" {
+  type    = string
+  default = "vagrant"
+}
+variable "iso_checksum" {
+  type    = string
+  default = "sha512:f7be9783eca633c7cf176deaa350ab058a0ae70bb9cab4d880a4f67a918c58e67f269b18fe9dfa8fd4ef8116faf2ee7df5ac931de6e1ef0368978454ef3d2eac"
+}
+
+variable "iso_url" {
+  description = <<EOF
+* Current images in https://cdimage.debian.org/cdimage/release/
+* Previous versions are in https://cdimage.debian.org/cdimage/archive/
+EOF
+
+  type    = string
+  default = "https://cdimage.debian.org/debian-cd/12.6.0/arm64/iso-cd/debian-12.6.0-arm64-netinst.iso"
+}
+
 
 packer {
   required_plugins {
@@ -25,9 +52,9 @@ packer {
   }
 }
 
-source "parallels-iso" "debian" {
-  iso_url          = "https://cdimage.debian.org/debian-cd/12.6.0/arm64/iso-cd/debian-12.6.0-arm64-netinst.iso"
-  iso_checksum     = "sha512:f7be9783eca633c7cf176deaa350ab058a0ae70bb9cab4d880a4f67a918c58e67f269b18fe9dfa8fd4ef8116faf2ee7df5ac931de6e1ef0368978454ef3d2eac"
+source "parallels-iso" "parallels" {
+  iso_url          = "${var.iso_url}"
+  iso_checksum     = "${var.iso_checksum}"
   ssh_username     = "${var.user_name}"
   ssh_password     = "${var.user_pwd}"
   ssh_timeout      = "10m"
@@ -56,9 +83,9 @@ source "parallels-iso" "debian" {
   parallels_tools_flavor = "lin-arm"
 }
 
-source "vmware-iso" "debian" {
-  iso_url          = "https://cdimage.debian.org/debian-cd/12.6.0/arm64/iso-cd/debian-12.6.0-arm64-netinst.iso"
-  iso_checksum     = "sha512:f7be9783eca633c7cf176deaa350ab058a0ae70bb9cab4d880a4f67a918c58e67f269b18fe9dfa8fd4ef8116faf2ee7df5ac931de6e1ef0368978454ef3d2eac"
+source "vmware-iso" "vmware" {
+  iso_url          = "${var.iso_url}"
+  iso_checksum     = "${var.iso_checksum}"
   ssh_username      = "${var.user_name}"
   ssh_password      = "${var.user_pwd}"
   ssh_timeout       = "5m"
@@ -94,7 +121,7 @@ source "vmware-iso" "debian" {
 }
 
 build {
-  sources = ["sources.parallels-iso.debian","sources.vmware-iso.debian"]
+  sources = ["sources.parallels-iso.parallels","sources.vmware-iso.vmware"]
 
   provisioner "shell" {
     execute_command = "echo '${var.user_pwd}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'"
@@ -104,7 +131,6 @@ build {
   provisioner "shell" {
     environment_vars = [
       "USER_NAME=${var.user_name}",
-      "PARALLELS=1"
     ]
     #execute_command =  "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'"
     scripts = [

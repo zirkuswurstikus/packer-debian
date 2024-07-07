@@ -1,3 +1,6 @@
+# vi: syntax=ruby
+# vi: filetype=ruby
+
 Vagrant.configure("2") do |config|
   #config.vm.box = "debian12_aarch64_parallels"
   config.vm.synced_folder "./", "/vagrant"
@@ -20,6 +23,11 @@ Vagrant.configure("2") do |config|
     v.cpus = 2
     v.memory = 1024
     v.vmx["ethernet0.pcislotnumber"] = "160"
+  end
 
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "provision/playbook.yaml"
+    #provisioning_path = "provision/"
+    #config_file = "./ansible.cfg"
   end
 end

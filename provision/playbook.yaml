@@ -1,0 +1,34 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Upgrade to latest
+      ansible.builtin.apt:
+        state: latest
+        force_apt_get: true
+        cache_valid_time: 3600
+    - name: Check pending reboots
+      register: reboot_required_file
+      stat:
+        path: /var/run/reboot-required
+        get_checksum: false
+
+    - name: Reboot the Debian
+      reboot:
+        msg: "Reboot initiated by Ansible due to kernel updates"
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+        test_command: uptime
+      when: reboot_required_file.stat.exists
+
+    - name: Run shell command
+      ansible.builtin.shell: |
+        uname -a
+        lsb_release -a
+      register: shell_output
+    - name: Show the result
+      ansible.builtin.debug:
+        var: shell_output.stdout
+

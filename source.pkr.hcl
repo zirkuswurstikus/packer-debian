@@ -21,7 +21,7 @@ variable "ssh_username" {
 }
 variable "iso_checksum" {
   type    = string
-  default = "sha512:f7be9783eca633c7cf176deaa350ab058a0ae70bb9cab4d880a4f67a918c58e67f269b18fe9dfa8fd4ef8116faf2ee7df5ac931de6e1ef0368978454ef3d2eac"
+  default = "sha512:04a2a128852c2dff8bb71779ad325721385051eb1264d897bdb5918ab207a9b1de636ded149c56c61a09eb8c7f428496815e70d3be31b1b1cf4c70bf6427cedd"
 }
 
 variable "iso_url" {
@@ -31,7 +31,7 @@ variable "iso_url" {
 EOF
 
   type    = string
-  default = "https://cdimage.debian.org/debian-cd/12.6.0/arm64/iso-cd/debian-12.6.0-arm64-netinst.iso"
+  default = "https://cdimage.debian.org/debian-cd/current/arm64/iso-cd/debian-12.9.0-arm64-netinst.iso"
 }
 
 
